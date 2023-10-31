@@ -7,4 +7,7 @@ public class car : MonoBehaviour
     public float strength;
     public float damping;
     public float length;
+    public float Frontgrip;
+    public float Backgrip;
+    public bool FrontWheelDrive;
 }
