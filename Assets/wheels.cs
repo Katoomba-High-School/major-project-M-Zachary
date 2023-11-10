@@ -78,16 +78,25 @@ public class wheels : MonoBehaviour
 
             float acceleration = velChange / Time.deltaTime;
 
-            Debug.DrawRay(transform.position, steeringDir * (acceleration/50), Color.red);
-            if(Math.Abs(acceleration) > 60)
+            //Debug.DrawRay(transform.position, steeringDir * (acceleration/50), Color.red);
+
+            if (gameObject.tag == "BackWheel")
             {
-                Debug.Log("Drifting");
+                if (Math.Abs(acceleration) > 40)
+                {
+                    childGameObject.GetComponent<TrailRenderer>().emitting = true;
+                }
+                else
+                {
+                    childGameObject.GetComponent<TrailRenderer>().emitting = false;
+                }
             }
+            
             parentRigidbody.AddForceAtPosition(steeringDir * 25 * acceleration, transform.position);
 
             if (gameObject.tag == "FrontWheel")
             {
-                float turnAngle = 5f;
+                float turnAngle = 3f;
                 if (Input.GetKey("a"))
                 {
                     transform.localEulerAngles = new Vector3(0,-turnAngle, 0);
@@ -104,13 +113,17 @@ public class wheels : MonoBehaviour
 
             //forwards force
 
-            
+
 
             if (Input.GetKey("w"))
             {
                 accInput = 1f;
             }
-            else
+            else if (Input.GetKey("s"))
+            {
+                accInput = -1f;
+            }
+            else 
             {
                 accInput = 0f;
             }
@@ -139,6 +152,18 @@ public class wheels : MonoBehaviour
 
                 }
 
+                if (accInput < 0f)
+                {
+                    float carSpeed = Vector3.Dot(parentGameObject.transform.forward, parentRigidbody.velocity);
+                    // top speed
+                    float normalisedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / -10);
+
+                    float avaTor = (curve.Evaluate(normalisedSpeed) * accInput) * 50;
+
+                    parentRigidbody.AddForceAtPosition(accDir * 50 * avaTor, transform.position);
+
+                }
+
             }
 
         }
@@ -147,6 +172,7 @@ public class wheels : MonoBehaviour
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * length, Color.white);
             Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
             childGameObject.transform.position = ray.GetPoint(length);
+           
         }
 
         
