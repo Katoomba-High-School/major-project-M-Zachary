@@ -18,7 +18,8 @@ public class wheels : MonoBehaviour
     float grip;
     float accInput = 0f;
     string driveType;
-  
+    float turnAngle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class wheels : MonoBehaviour
         strength = parentScript.strength;
         damping = parentScript.damping;
         length = parentScript.length;
+        turnAngle = parentScript.turnAngle;
         if (gameObject.tag == "FrontWheel")
         {
             grip = parentScript.Frontgrip;
@@ -79,24 +81,22 @@ public class wheels : MonoBehaviour
             float acceleration = velChange / Time.deltaTime;
 
             //Debug.DrawRay(transform.position, steeringDir * (acceleration/50), Color.red);
-
-            if (gameObject.tag == "BackWheel")
-            {
-                if (Math.Abs(acceleration) > 40)
-                {
-                    childGameObject.GetComponent<TrailRenderer>().emitting = true;
-                }
-                else
-                {
-                    childGameObject.GetComponent<TrailRenderer>().emitting = false;
-                }
-            }
-            
             parentRigidbody.AddForceAtPosition(steeringDir * 25 * acceleration, transform.position);
+
+
+            if (Math.Abs(acceleration) > 60)
+            {
+                childGameObject.GetComponent<TrailRenderer>().emitting = true;
+                CanvasManager.drifting = true;
+            }
+            else
+            {
+                childGameObject.GetComponent<TrailRenderer>().emitting = false;
+            }
 
             if (gameObject.tag == "FrontWheel")
             {
-                float turnAngle = 3f;
+                
                 if (Input.GetKey("a"))
                 {
                     transform.localEulerAngles = new Vector3(0,-turnAngle, 0);
@@ -172,7 +172,8 @@ public class wheels : MonoBehaviour
             //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * length, Color.white);
             Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
             childGameObject.transform.position = ray.GetPoint(length);
-           
+            childGameObject.GetComponent<TrailRenderer>().emitting = false;
+
         }
 
         

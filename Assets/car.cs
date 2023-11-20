@@ -10,4 +10,5 @@ public class car : MonoBehaviour
     public float Frontgrip;
     public float Backgrip;
     public bool FrontWheelDrive;
+    public float turnAngle;
 }
