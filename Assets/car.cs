@@ -11,4 +11,18 @@ public class car : MonoBehaviour
     public float Backgrip;
     public bool FrontWheelDrive;
     public float turnAngle;
+
+    public Rigidbody rb;
+
+
+    public void Start()
+    {
+
+    }
+
+    public void Update()
+    {
+       
+    }
+
 }
