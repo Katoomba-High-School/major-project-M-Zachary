@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
+
 public class wheels : MonoBehaviour
 {
     GameObject parentGameObject;
@@ -20,7 +23,9 @@ public class wheels : MonoBehaviour
     float accInput = 0f;
     string driveType;
     float turnAngle;
+    public GameObject driftSprite;
 
+    public DecalsList DecalsList;
 
     void Start()
     {
@@ -54,11 +59,15 @@ public class wheels : MonoBehaviour
 
     }
 
-    void drift(float a, Ray ray, RaycastHit h)
+    void drift(float a, RaycastHit h)
     {
         if (Math.Abs(a) > 50)
         {
-            childGameObject.GetComponent<TrailRenderer>().emitting = true;
+            //childGameObject.GetComponent<TrailRenderer>().emitting = true;
+            GameObject decalObject = Instantiate(driftSprite, h.point + (h.normal * 0.025f), Quaternion.identity) as GameObject;
+       
+            decalObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, h.normal);
+            decalObject.transform.rotation = Quaternion.EulerAngles(new Vector3(1.5708f, 0, 0));
             CanvasManager.drifting = true;
           
         }
@@ -85,7 +94,7 @@ public class wheels : MonoBehaviour
 
 
 
-    void sideForce(Ray ray, RaycastHit h)
+    void sideForce(RaycastHit h)
     {
         Vector3 steeringDir = transform.right;
         Vector3 wheelVel = parentRigidbody.GetPointVelocity(transform.position);
@@ -99,7 +108,7 @@ public class wheels : MonoBehaviour
 
         if (gameObject.tag == "BackWheel")
         {
-            drift(acceleration, ray, h);
+            drift(acceleration, h);
         }
 
         if (gameObject.tag == "FrontWheel")
@@ -175,10 +184,10 @@ public class wheels : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, length))
         {
-            Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
+           
             springForce(hit);
             
-            sideForce(ray, hit);
+            sideForce(hit);
 
             forwardForce();
 
