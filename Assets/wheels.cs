@@ -61,20 +61,17 @@ public class wheels : MonoBehaviour
 
     void drift(float a, RaycastHit h)
     {
-        if (Math.Abs(a) > 50)
+        if (Math.Abs(a) > 40)
         {
-            //childGameObject.GetComponent<TrailRenderer>().emitting = true;
+
+            CanvasManager.drifting = true;
+
             GameObject decalObject = Instantiate(driftSprite, h.point + (h.normal * 0.025f), Quaternion.identity) as GameObject;
-       
+            decalObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, (Math.Abs(a) * 2) / 255);
             decalObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, h.normal);
             decalObject.transform.rotation = Quaternion.EulerAngles(new Vector3(1.5708f, 0, 0));
-            CanvasManager.drifting = true;
-          
         }
-        else
-        {
-            childGameObject.GetComponent<TrailRenderer>().emitting = false;
-        }
+
     }
 
 

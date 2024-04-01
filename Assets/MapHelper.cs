@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum Direction
+{
+    West,
+    East,
+    North,
+    South
+}
 public static class MapHelper 
 {
-    public enum Direction
-    {
-        West,
-        East
-    }
+
 
     public static Vector2 ToPoint(this Direction dir)
     {
@@ -16,6 +20,8 @@ public static class MapHelper
         {
             Direction.East => new Vector2(1, 0),
             Direction.West => new Vector2(-1, 0),
+            Direction.North => new Vector2(0, 1),
+            Direction.South => new Vector2(0, -1),
             _ => throw new System.NotImplementedException(),
         };
     }

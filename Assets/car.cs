@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
@@ -17,7 +18,11 @@ public class car : MonoBehaviour
 
     public void Update()
     {
-       if (self.position.y < -5)
+    
+        CanvasManager.speed = self.GetComponent<Rigidbody>().velocity.magnitude;
+
+
+        if (self.position.y < -5)
         {
             self.position = new Vector3(0, 3, 0);
         }
