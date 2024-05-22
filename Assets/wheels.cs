@@ -29,6 +29,7 @@ public class wheels : MonoBehaviour
 
     void Start()
     {
+        
         parentGameObject = transform.parent.gameObject;
         childGameObject = transform.GetChild(0).gameObject;
 

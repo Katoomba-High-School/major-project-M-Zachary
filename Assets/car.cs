@@ -14,11 +14,18 @@ public class car : MonoBehaviour
     public bool FrontWheelDrive;
     public float turnAngle;
     public Transform self;
+    public float HorizontalV = 0;
 
+    public void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     public void Update()
     {
-    
+
+        HorizontalV = Vector2.Dot(self.GetComponent<Rigidbody>().velocity, Vector2.right);
+        Debug.Log(HorizontalV);
         CanvasManager.speed = self.GetComponent<Rigidbody>().velocity.magnitude;
 
 

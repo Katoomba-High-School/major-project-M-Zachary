@@ -2434,11 +2434,12 @@ MonoBehaviour:
   strength: 7000
   damping: 700
   length: 0.5
-  Frontgrip: 0.3
-  Backgrip: 0.125
+  Frontgrip: 0.5
+  Backgrip: 0.15
   FrontWheelDrive: 0
   turnAngle: 25
   self: {fileID: 1143203354}
+  HorizontalV: 0
 --- !u!1 &1236986817
 GameObject:
   m_ObjectHideFlags: 0
