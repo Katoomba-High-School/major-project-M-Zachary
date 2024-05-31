@@ -23,6 +23,7 @@ public class wheels : MonoBehaviour
     float accInput = 0f;
     string driveType;
     float turnAngle;
+    float TurningHelper;
     public GameObject driftSprite;
 
     public DecalsList DecalsList;
@@ -39,6 +40,7 @@ public class wheels : MonoBehaviour
         damping = parentScript.damping;
         length = parentScript.length;
         turnAngle = parentScript.turnAngle;
+       
         if (gameObject.tag == "FrontWheel")
         {
             grip = parentScript.Frontgrip;
@@ -113,8 +115,9 @@ public class wheels : MonoBehaviour
         {
 
             var input = Input.GetAxis("Horizontal");
-
-            transform.localEulerAngles = new Vector3(0, turnAngle * input, 0);
+            
+          
+            transform.localEulerAngles = new Vector3(0, (turnAngle * input) + car.HorizontalV, 0);
 
         }
     }

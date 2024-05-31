@@ -24,6 +24,9 @@ public class Map : MonoBehaviour
 
     public GameObject ObjectSprite;
 
+    public GameObject CheckSprite;
+
+
     public GameObject isle;
 
     int GetValue(int x, int y)
@@ -46,7 +49,8 @@ public class Map : MonoBehaviour
         
   
         mapArray = new int[][]
-        {  
+        {
+        new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         new int[] { 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1},
         new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         new int[] { 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
@@ -98,7 +102,7 @@ public class Map : MonoBehaviour
         new int[] { 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
         new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         new int[] { 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1},
-
+        new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 
         };
 
@@ -142,9 +146,13 @@ public class Map : MonoBehaviour
                             {
 
                                 //checkPoints.Add(Connection(new Point{x,y}));
+
+                              
                                 Debug.DrawLine(new Vector3((8 * x) + 4, 2, (8 * y)), new Vector3((8 * (x + counter - 1)) + 4, 2, (8 * (y))), UnityEngine.Color.green, 100, false);
 
-                    
+                                
+
+
                             }
 
 

@@ -14,7 +14,7 @@ public class car : MonoBehaviour
     public bool FrontWheelDrive;
     public float turnAngle;
     public Transform self;
-    public float HorizontalV = 0;
+    public static float HorizontalV = 0;
 
     public void Awake()
     {
@@ -24,8 +24,10 @@ public class car : MonoBehaviour
     public void Update()
     {
 
-        HorizontalV = Vector2.Dot(self.GetComponent<Rigidbody>().velocity, Vector2.right);
-        Debug.Log(HorizontalV);
+        Vector3 localVelocity = transform.InverseTransformDirection(self.GetComponent<Rigidbody>().velocity);
+        car.HorizontalV = Math.Clamp(localVelocity.x * 4, -45, 45);
+
+        //Debug.Log(HorizontalV);
         CanvasManager.speed = self.GetComponent<Rigidbody>().velocity.magnitude;
 
 

@@ -12,6 +12,9 @@ public class CanvasManager : MonoBehaviour
     public static int driftTime = 0;
     public static bool drifting = false;
     public static float speed = 0f;
+
+    public static int checkPoints = 0;
+
     private float timer = 0f;
 
     [SerializeField] Image arrowObject;
@@ -26,7 +29,9 @@ public class CanvasManager : MonoBehaviour
         angle = 90 - angle;
 
         timer += Time.deltaTime;
-  
+
+
+        // Debug.Log(checkPoints);
 
         arrowObject.rectTransform.localEulerAngles = new Vector3(0, 0, angle);
 
