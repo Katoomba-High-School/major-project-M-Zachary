@@ -24,7 +24,7 @@ public class Map : MonoBehaviour
 
     public GameObject ObjectSprite;
 
-    public GameObject CheckSprite;
+    
 
 
     public GameObject isle;
