@@ -26,6 +26,7 @@ public class way : MonoBehaviour
     public GameObject Instance;
     public GameObject Player;
     public List<WayPoint> WayPoints;
+    public static List<string> Que = new List<string>();
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,10 @@ public class way : MonoBehaviour
 
             Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x, Object.transform.rotation.eulerAngles.y, 0);
             Object.transform.position = (p1 + p2) / 2;
+            Object.name = $"{WayPoints[i].x}, {WayPoints[i].y}";
 
+            way.Que.Add( Object.name);
+            
             if (WayPoints[i].Type == WayPointType.StartEnd)
             {
                 Player.transform.position = Object.transform.position;

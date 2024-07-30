@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.Android;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
@@ -23,8 +24,11 @@ public class Map : MonoBehaviour
     public List<Connection> checkPoints = new List<Connection>();
 
     public GameObject ObjectSprite;
+    public GameObject cone;
 
-    
+    private List<Vector3[]> walls = new List<Vector3[]>();
+
+
 
 
     public GameObject isle;
@@ -128,36 +132,6 @@ public class Map : MonoBehaviour
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////
                     if (GetValue(x + 1, y) == 0 || GetValue(x + 1, y) == 2)
                     {
-
-                        
-                        if (GetValue(x, y) == 1)
-                        {
-                            int counter = 1;
-
-                            // walk right untill it hits a air or out of bohnds
-                            while (GetValue(x + counter, y) == 0)
-                            {
-                                counter++;
-                            }
-
-
-                            // if its air 
-                            if (GetValue(x + counter, y - 2) != -1 && counter <= 4)
-                            {
-
-                                //checkPoints.Add(Connection(new Point{x,y}));
-
-                              
-                                Debug.DrawLine(new Vector3((8 * x) + 4, 2, (8 * y)), new Vector3((8 * (x + counter - 1)) + 4, 2, (8 * (y))), UnityEngine.Color.green, 100, false);
-
-                                
-
-
-                            }
-
-
-                        }
-
                         // check 1 cell above
                         if (GetValue(x, y - 2) == 1)
                         {
@@ -176,15 +150,8 @@ public class Map : MonoBehaviour
                                 Vector3 p1 = new Vector3((8 * x) + 4, 2, (8 * y));
                                 Vector3 p2 = new Vector3((8 * (x + counter - 1)) + 4, 2, (8 * (y - 2)));
 
-                                Debug.DrawLine(new Vector3((8 * x) + 4, 2, (8 * y)), new Vector3((8 * (x + counter - 1)) + 4, 2, (8 * (y - 2))), UnityEngine.Color.blue, 100, false);
-                                
-                                
-                                GameObject Object = Instantiate(ObjectSprite, p1, Quaternion.identity);
-                                Object.transform.localScale = new Vector3(Object.transform.localScale.x, Object.transform.localScale.y, Vector3.Distance(p1, p2));
-                                Object.transform.LookAt(p2, Vector3.forward);
-
-                                Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x, Object.transform.rotation.eulerAngles.y, 0);
-                                Object.transform.position = (p1 + p2) / 2;
+                                //Debug.DrawLine(new Vector3((8 * x) + 4, 2, (8 * y)), new Vector3((8 * (x + counter - 1)) + 4, 2, (8 * (y - 2))), UnityEngine.Color.blue, 100, false);
+                                Generate(p1, p2);
                             }
 
 
@@ -209,14 +176,8 @@ public class Map : MonoBehaviour
                                 Vector3 p1 = new Vector3((8 * x) + 4, 2, (8 * y));
                                 Vector3 p2 = new Vector3((8 * (x + counter - 1)) + 4, 2, (8 * (y + 2)));
 
-                                Debug.DrawLine(new Vector3((8 * x) +4, 2, (8 * y)), new Vector3((8 * (x + counter - 1))+4, 2, (8 * (y + 2))), UnityEngine.Color.blue, 100, false);
-
-                                GameObject Object = Instantiate(ObjectSprite, p1, Quaternion.identity);
-                                Object.transform.localScale = new Vector3(Object.transform.localScale.x, Object.transform.localScale.y, Vector3.Distance(p1, p2));
-                                Object.transform.LookAt(p2, Vector3.forward);
-
-                                Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x, Object.transform.rotation.eulerAngles.y, 0);
-                                Object.transform.position = (p1 + p2) / 2;
+                                //Debug.DrawLine(new Vector3((8 * x) +4, 2, (8 * y)), new Vector3((8 * (x + counter - 1))+4, 2, (8 * (y + 2))), UnityEngine.Color.blue, 100, false);
+                                Generate(p1 , p2);
                             }
 
 
@@ -245,15 +206,8 @@ public class Map : MonoBehaviour
                                 Vector3 p1 = new Vector3((8 * x) - 4, 2, (8 * y));
                                 Vector3 p2 = new Vector3((8 * (x + counter + 1)) - 4, 2, (8 * (y - 2)));
 
-                                Debug.DrawLine(new Vector3((8 * x) - 4, 2, (8 * y)), new Vector3((8 * (x + counter + 1)) - 4, 2, (8 * (y - 2))), UnityEngine.Color.red, 100, false);
-
-
-                                GameObject Object = Instantiate(ObjectSprite, p1, Quaternion.identity);
-                                Object.transform.localScale = new Vector3(Object.transform.localScale.x, Object.transform.localScale.y, Vector3.Distance(p1, p2));
-                                Object.transform.LookAt(p2, Vector3.forward);
-
-                                Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x, Object.transform.rotation.eulerAngles.y, 0);
-                                Object.transform.position = (p1 + p2) / 2;
+                                //Debug.DrawLine(new Vector3((8 * x) - 4, 2, (8 * y)), new Vector3((8 * (x + counter + 1)) - 4, 2, (8 * (y - 2))), UnityEngine.Color.red, 100, false);
+                                Generate(p1, p2);
                             }
 
 
@@ -274,14 +228,9 @@ public class Map : MonoBehaviour
                                 Vector3 p1 = new Vector3((8 * x) - 4, 2, (8 * y));
                                 Vector3 p2 = new Vector3((8 * (x + counter + 1)) - 4, 2, (8 * (y + 2)));
 
-                                Debug.DrawLine(p1, p2, UnityEngine.Color.red, 100, false);
+                                //Debug.DrawLine(p1, p2, UnityEngine.Color.red, 100, false);
 
-                                GameObject Object = Instantiate(ObjectSprite, p1, Quaternion.identity);
-                                Object.transform.localScale = new Vector3(Object.transform.localScale.x, Object.transform.localScale.y, Vector3.Distance(p1, p2));
-                                Object.transform.LookAt(p2, Vector3.forward);
-
-                                Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x, Object.transform.rotation.eulerAngles.y, 0);
-                                Object.transform.position = (p1 + p2) / 2;
+                                Generate(p1, p2);
 
                             }
 
@@ -301,4 +250,64 @@ public class Map : MonoBehaviour
     }
 
   
+    private void Generate(Vector3 p1, Vector3 p2)
+    {
+        bool flag = true;
+        for (int i = 0; i < walls.Count; i++)
+        {
+
+            if (p1 == walls[i][0] && p2 == walls[i][1])
+            {
+                flag = false;
+                
+            }
+            else if (p2== walls[i][0] && p1 == walls[i][1])
+            {
+                flag = false;
+
+            }
+
+        }
+        if (flag) 
+        {
+            walls.Add(new Vector3[] { p1, p2 });
+
+            float dist = Vector3.Distance(p1, p2);
+            GameObject Object = Instantiate(ObjectSprite, p1, Quaternion.identity);
+            Object.transform.localScale = new Vector3(Object.transform.localScale.x, Object.transform.localScale.y, dist);
+            Object.transform.LookAt(p2, Vector3.forward);
+
+            Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x, Object.transform.rotation.eulerAngles.y, 0);
+            Object.transform.position = (p1 + p2) / 2;
+
+
+            var start = Vector3.MoveTowards(p1, p2, 2f);
+            var end = Vector3.MoveTowards(p2, p1, 2f);
+
+            dist = Vector3.Distance(start, end);
+
+            float coneSize = cone.transform.localScale.x + 1f;
+            int numOfCones = (int)(dist / coneSize) + 1;
+
+
+
+            for (int i = 0; i < numOfCones; i++)
+            {
+                //cone
+                Object = Instantiate(cone, start, Quaternion.identity);
+
+                Object.transform.LookAt(end, Vector3.forward);
+
+                Object.transform.rotation = Quaternion.Euler(Object.transform.rotation.eulerAngles.x - 90, Object.transform.rotation.eulerAngles.y, 0);
+
+                //float temp = (i == 0) ? cone.transform.localScale.x : coneSize;
+                Object.transform.position = Vector3.MoveTowards(start, end, coneSize * i);
+                // Object.transform.position = (p1 + p2) / 2;
+                Object.transform.position -= new Vector3(0, 2, 0);
+            }
+        }
+       
+
+    }
+
 }

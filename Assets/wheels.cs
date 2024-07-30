@@ -7,6 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
 using Palmmedia.ReportGenerator.Core.Reporting.Builders;
+using UnityEngine.InputSystem.Android.LowLevel;
+using UnityEngine.Animations;
 
 public class wheels : MonoBehaviour
 {
@@ -113,10 +115,17 @@ public class wheels : MonoBehaviour
 
         if (gameObject.tag == "FrontWheel")
         {
+           
 
-            var input = Input.GetAxis("Horizontal");
-            
-          
+            var input = Input.GetAxis("Horizontal") * 0;
+            if (Controller.gameNumber == 3)
+            {
+                input = Input.GetAxis("Horizontal");
+            }
+
+
+            drift(acceleration - (turnAngle * input), h);
+
             transform.localEulerAngles = new Vector3(0, (turnAngle * input) + car.HorizontalV, 0);
 
         }
@@ -127,18 +136,26 @@ public class wheels : MonoBehaviour
     void forwardForce()
     {
        
-        if (Input.GetKey("w")  || Input.GetAxis("Fire1") == 1)
+        if (Input.GetKey("w") || Input.GetAxis("Fire1") == 1)
         {
-            accInput = 1f;
+            if (Controller.gameNumber == 3)
+            {
+                accInput = 1f;
+            }
         }
         else if (Input.GetKey("s") || Input.GetAxis("Fire2") == 1)
         {
-            accInput = -1f;
+                if (Controller.gameNumber == 3)
+                {
+                    accInput = -1f;
+                }
         }
         else
         {
             accInput = 0f;
         }
+        
+        
 
         Vector3 accDir = transform.forward;
         Vector3 wheelVel = parentRigidbody.GetPointVelocity(transform.position);

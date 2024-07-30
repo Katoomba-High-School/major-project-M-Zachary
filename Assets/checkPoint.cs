@@ -20,7 +20,15 @@ public class checkPoint : MonoBehaviour
     {
         if(other.gameObject.tag == "player")
         {
-            Debug.Log("Hit");
+           if (way.Que[0] == this.name)
+            {
+                Debug.Log("hit");
+               
+
+                way.Que.RemoveAt(0);
+                Destroy(this.gameObject);
+            }
+            
         }
     }
 }
