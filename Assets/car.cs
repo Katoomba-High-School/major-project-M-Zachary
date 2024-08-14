@@ -63,21 +63,37 @@ public class car : MonoBehaviour
         {
             drift = false;
         }
-        
-        if (Input.GetKey("w") || Input.GetAxis("Fire1") == 1)
+
+
+        if (Controller.gameNumber < 4)
         {
-            sourceCar.volume = vol/2;
             
+
+            if (Input.GetKey("w") || Input.GetAxis("Fire1") == 1)
+            {
+                sourceCar.volume = vol / 2;
+
+            }
+            else
+            {
+                sourceCar.volume = vol / 3;
+
+            }
+            if (sourceCar.volume < 0.1f)
+            {
+                sourceCar.volume = 0.1f;
+            }
         }
         else
+
         {
-            sourceCar.volume = vol/3;
+            sourceCar.volume = 0f;
+        }
+        
+        
             
-        }
-        if (sourceCar.volume < 0.1f)
-        {
-            sourceCar.volume = 0.1f;
-        }
+
+        
 
         if (!sourceCar.isPlaying)
         {
@@ -86,13 +102,14 @@ public class car : MonoBehaviour
         }
 
         sourceWheel.volume = 0;
-        if (drift == true)
+        if (drift == true && Controller.gameNumber < 4)
         {
-            sourceWheel.volume = 0.3f;
+            sourceWheel.volume = 0.1f;
 
 
 
-        } else
+        } 
+        else
         {
             if (sourceWheel.volume > 0)
             {

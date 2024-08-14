@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class checkPoint : MonoBehaviour
 {
+
+    public Transform target;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,25 @@ public class checkPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Controller.gameNumber < 4)
+        {
+            if (way.Que[0] == this.name)
+            {
+                Vector3 directionToTarget = transform.position - target.position;
+
+
+                float angle = Vector3.Angle(target.forward, directionToTarget);
+                float dotProduct = Vector3.Dot(target.right, directionToTarget);
+
+                if (dotProduct > 0)
+                {
+                    angle = -angle;
+                }
+
+                Arrow.angle = angle;
+
+            }
+        }
         
     }
 
