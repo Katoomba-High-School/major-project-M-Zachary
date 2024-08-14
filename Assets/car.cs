@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class car : MonoBehaviour
@@ -89,7 +88,7 @@ public class car : MonoBehaviour
         sourceWheel.volume = 0;
         if (drift == true)
         {
-            sourceWheel.volume = 0.5f;
+            sourceWheel.volume = 0.3f;
 
 
 

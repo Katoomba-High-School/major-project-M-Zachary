@@ -20,7 +20,19 @@ public class Controller : MonoBehaviour
     {
         gameTimer += Time.deltaTime;
         timerObject.text = gameState;
-   
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Controller.gameNumber = 0;
+            CanvasManager.driftTime = 0;
+            CanvasManager.driftTime2 = 0;
+            CanvasManager.drifting = false;
+            CanvasManager.speed = 0;
+            CanvasManager.checkPoints = 0;
+
+            SceneManager.LoadScene("MainMenu");
+        }
+
 
         if (gameNumber == 0 && gameTimer >= 1)
         {

@@ -31,6 +31,7 @@ public class CanvasManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         float speedConverted = (float)(Math.Abs(speed * 3.6));
         float angle = (speedConverted* (180 / maxSpeed));
         
@@ -49,7 +50,11 @@ public class CanvasManager : MonoBehaviour
         }
         else
         {
-            score = (int)Math.Round(((driftTime2 / driftTime) * 100));
+            if (Controller.gameNumber <= 3)
+            {
+                score = (int)Math.Round(((driftTime2 / driftTime) * 100));
+            }
+                
         }
         
 
