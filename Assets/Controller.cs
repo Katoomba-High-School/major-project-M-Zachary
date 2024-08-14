@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class Controller : MonoBehaviour
     public static int gameNumber = 0;
     private float gameTimer = 0;
 
-  
+
+
+
 
     void Update()
     {

@@ -57,12 +57,7 @@ public class CanvasManager : MonoBehaviour
        
         timerObject2.text = "Score " + score.ToString();
       
-        /*if (timer >= 1f && Controller.gameNumber == 3)
-        {
-            CanvasManager.driftTime += 1;
-            CanvasManager.drifting = false;
-            timer = 0f;
-        }*/
+        
 
 
         if (drifting)
