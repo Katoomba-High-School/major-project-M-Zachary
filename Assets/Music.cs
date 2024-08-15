@@ -14,7 +14,7 @@ public class Music : MonoBehaviour
         sourceBM = gameObject.AddComponent<AudioSource>();
 
         sourceBM.clip = clipBM;
-        sourceBM.volume = 0.3f;
+        sourceBM.volume = 0.5f;
 
     }
 

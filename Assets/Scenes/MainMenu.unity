@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c6ca60be692624b937ce6d9016ab2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipBeep: {fileID: 8300000, guid: 0b9200ebda2b9f64f80dac114fefd50b, type: 3}
 --- !u!1 &733151044
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c2802efef102645a1e4922bb72f0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clipBeep: {fileID: 8300000, guid: 0b9200ebda2b9f64f80dac114fefd50b, type: 3}
 --- !u!1 &1241253654
 GameObject:
   m_ObjectHideFlags: 0

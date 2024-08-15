@@ -11,9 +11,22 @@ public class Controller : MonoBehaviour
     private string gameState = "3";
     public static int gameNumber = 0;
     private float gameTimer = 0;
+    private AudioSource sourceBeep;
+    [SerializeField] private AudioClip clipBeep;
+    private AudioSource sourceBeep2;
+    [SerializeField] private AudioClip clipBeep2;
 
+    private void Start()
+    {
+        sourceBeep2 = gameObject.AddComponent<AudioSource>();
 
+        sourceBeep2.clip = clipBeep2;
+        sourceBeep = gameObject.AddComponent<AudioSource>();
 
+        sourceBeep.clip = clipBeep;
+        sourceBeep.PlayScheduled(1f);
+        
+    }
 
 
     void Update()
@@ -36,18 +49,21 @@ public class Controller : MonoBehaviour
 
         if (gameNumber == 0 && gameTimer >= 1)
         {
+            sourceBeep.PlayScheduled(1f);
             gameState = "2";
             gameTimer = 0;
             gameNumber++;
         }
         else if (gameNumber == 1 && gameTimer >= 1)
         {
+            sourceBeep.PlayScheduled(1f);
             gameState = "1";
             gameTimer = 0;
             gameNumber++;
         }
         else if (gameNumber == 2 && gameTimer >= 1)
         {
+            sourceBeep2.PlayScheduled(1f);
             gameState = "Go";
             gameTimer = 0;
             gameNumber++;
